@@ -38,9 +38,9 @@ export const Services = () => {
               {/* Magic Hover Background */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-slate-900 to-indigo-900 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0"></div>
 
-              {/* Watermark Number */}
-              <div className="absolute -right-2 -top-6 text-[140px] font-black text-slate-200/50 group-hover:text-white/5 transition-colors duration-500 z-0 select-none pointer-events-none">
-                0{index + 1}
+              {/* Watermark Icon */}
+              <div className="absolute -right-8 -bottom-8 text-slate-200/40 group-hover:text-white/5 transition-colors duration-700 z-0 select-none pointer-events-none transform -rotate-12">
+                {React.cloneElement(service.icon as React.ReactElement, { size: 200, strokeWidth: 1 })}
               </div>
 
               <div className="relative z-10 flex flex-col h-full min-h-[280px]">
