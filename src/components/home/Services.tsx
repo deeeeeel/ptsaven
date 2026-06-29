@@ -40,7 +40,7 @@ export const Services = () => {
 
               {/* Watermark Icon */}
               <div className="absolute -right-8 -bottom-8 text-slate-200/40 group-hover:text-white/5 transition-colors duration-700 z-0 select-none pointer-events-none transform -rotate-12">
-                {React.cloneElement(service.icon as React.ReactElement, { size: 200, strokeWidth: 1 })}
+                {React.cloneElement(service.icon as React.ReactElement<any>, { size: 200, strokeWidth: 1 })}
               </div>
 
               <div className="relative z-10 flex flex-col h-full min-h-[280px]">

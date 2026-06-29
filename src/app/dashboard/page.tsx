@@ -286,18 +286,90 @@ export default function Dashboard() {
 
   const renderDocuments = () => (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-900">Document Center</h1>
-      <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8 text-center text-slate-500">
-        Document center implementation...
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">Smart Document Center</h1>
+          <p className="text-slate-500 text-sm mt-1">AI-powered centralized repository for all corporate files.</p>
+        </div>
+        <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition-colors flex items-center gap-2">
+           Upload File
+        </button>
+      </div>
+
+      <div className="bg-white p-1 rounded-xl shadow-sm border border-slate-200 flex items-center mb-6">
+        <div className="pl-4 pr-2 text-blue-600"><Zap size={20} /></div>
+        <input type="text" placeholder="Ask AI to find documents (e.g. 'Show me the latest Wilmar contract')" className="w-full py-3 px-2 outline-none text-slate-700 placeholder-slate-400 bg-transparent" />
+        <button className="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-bold mr-1">Search AI</button>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        {['Legal & Licensing', 'Financial & Tax', 'Project Contracts', 'Marketing Assets', 'Vendor Database', 'HR & Employee'].map((cat, i) => (
+          <div key={i} className="p-4 bg-white border border-slate-200 rounded-xl hover:border-blue-400 hover:shadow-md transition-all cursor-pointer group flex items-start gap-3">
+             <div className="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                <FolderKanban size={20} />
+             </div>
+             <div>
+               <h3 className="font-bold text-slate-900 text-sm group-hover:text-blue-700">{cat}</h3>
+               <p className="text-xs text-slate-400 mt-1">{Math.floor(Math.random() * 50) + 5} files</p>
+             </div>
+          </div>
+        ))}
+      </div>
+      
+      <h3 className="font-bold text-slate-800 mt-8 mb-4">Recently Uploaded</h3>
+      <div className="bg-white border border-slate-200 rounded-xl shadow-sm">
+        {['Kontrak_Kerjasama_Antam_Draft.pdf', 'Sertifikat_SBU_2026.pdf', 'Invoice_004_Rental.xlsx', 'Company_Profile_SAVEN.pdf'].map((file, i) => (
+          <div key={i} className="flex items-center justify-between p-4 border-b border-slate-100 last:border-0 hover:bg-slate-50 cursor-pointer">
+            <div className="flex items-center gap-4">
+              <FileText size={24} className={file.includes('pdf') ? 'text-red-500' : 'text-green-500'} />
+              <div>
+                <p className="font-semibold text-slate-900 text-sm">{file}</p>
+                <p className="text-xs text-slate-500 mt-0.5">Uploaded today by Admin</p>
+              </div>
+            </div>
+            <button className="text-slate-400 hover:text-blue-600"><MoreVertical size={18} /></button>
+          </div>
+        ))}
       </div>
     </div>
   );
 
   const renderTimeline = () => (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-900">Timeline</h1>
-      <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8 text-center text-slate-500">
-        Timeline implementation...
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">Corporate Timeline</h1>
+          <p className="text-slate-500 text-sm mt-1">Milestones, deadlines, and project schedules.</p>
+        </div>
+      </div>
+
+      <div className="bg-white p-8 border border-slate-200 rounded-xl shadow-sm relative">
+         <div className="absolute left-[135px] top-8 bottom-8 w-0.5 bg-slate-100"></div>
+         <div className="space-y-8 relative z-10">
+            {[
+              { date: 'Today', title: 'Upload Proposal ANTAM', desc: 'Deadline for tender document submission via LPSE', color: 'red', alert: 'Due Today' },
+              { date: 'Jul 05', title: 'ISO 9001 Expiry', desc: 'Quality management certificate needs renewal process completion', color: 'amber', alert: '< 7 Days' },
+              { date: 'Jul 15', title: 'Wilmar Legal Handover', desc: 'Target date to complete Halal & KBLI addition for logistics', color: 'blue' },
+              { date: 'Aug 12', title: 'SBU Renewal Check', desc: 'Routine check for Konstruksi Gedung licensing', color: 'emerald' },
+              { date: 'Oct 20', title: 'LPSE Account Maintenance', desc: 'Password and token refresh for government tender portal', color: 'emerald' },
+            ].map((event, i) => (
+              <div key={i} className="flex gap-8 items-start">
+                 <div className="w-24 text-right pt-1 shrink-0">
+                    <span className="text-sm font-bold text-slate-900">{event.date}</span>
+                 </div>
+                 <div className="relative flex items-center justify-center shrink-0 mt-1.5">
+                    <div className={`w-4 h-4 rounded-full bg-${event.color}-100 border-2 border-${event.color}-500 z-10`}></div>
+                 </div>
+                 <div className="pb-8 border-b border-slate-50 w-full last:border-0 last:pb-0">
+                   <div className="flex items-center gap-3 mb-1">
+                     <h3 className="font-bold text-slate-900">{event.title}</h3>
+                     {event.alert && <span className={`text-[10px] px-2 py-0.5 rounded-full bg-${event.color}-50 text-${event.color}-600 font-bold`}>{event.alert}</span>}
+                   </div>
+                   <p className="text-sm text-slate-500">{event.desc}</p>
+                 </div>
+              </div>
+            ))}
+         </div>
       </div>
     </div>
   );
