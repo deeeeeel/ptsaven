@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #facc15;
+  --color-secondary: #0f172a;
+  --color-background: #F8FAFC;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+}
